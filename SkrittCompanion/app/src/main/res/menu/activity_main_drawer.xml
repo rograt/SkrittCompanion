@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+        <item android:title="@string/tools" >
+            <menu>
+                <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/boss_timer"
+                    android:icon="@drawable/ic_kralk_four"
+                    android:title="@string/world_boss_timer"
+                    />
+                    <item
+                        android:id="@+id/item_search"
+                        android:icon="@drawable/ic_items_logo"
+                        android:title="@string/item_search"
+                        />
+                    <item
+                        android:id="@+id/daily_menu_item"
+                        android:icon="@drawable/ic_daily"
+                        android:title="@string/dailies"
+                        />
+                </group>
+            </menu>
+        </item>
+    <item android:title="@string/account" >
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/overview"
+                    android:icon="@drawable/ic_account"
+                    android:title="@string/overview"
+                    />
+                <item
+                    android:id="@+id/wallet"
+                    android:icon="@drawable/ic_wallet_logo"
+                    android:title="@string/wallet"
+                    />
+                <item
+                    android:id="@+id/trading_post_sell_menu_item"
+                    android:icon="@drawable/ic_tp_sell"
+                    android:title="@string/trading_post_sell"
+                    />
+                <item
+                    android:id="@+id/trading_post_buy_menu_item"
+                    android:icon="@drawable/ic_tp_buy"
+                    android:title="@string/trading_post_buy"
+                    />
+            </group>
+        </menu>
+    </item>
+</menu>

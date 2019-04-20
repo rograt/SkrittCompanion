@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "971069878713",
+    "firebase_url": "https://skrittcompanion.firebaseio.com",
+    "project_id": "skrittcompanion",
+    "storage_bucket": "skrittcompanion.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:971069878713:android:fe74f47823832c40",
+        "android_client_info": {
+          "package_name": "com.example.skrittcompanion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "971069878713-skqgjugf1h91u14om3qr5haqfo8bp0vp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.skrittcompanion",
+            "certificate_hash": "630a17da7e9a5029cd11a6ff39f6129bc8324f32"
+          }
+        },
+        {
+          "client_id": "971069878713-dh0r5fvske5neduiuptbqavth97s0u1c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBl5u9vIRc7js1LTxnms0Rn8XC1NNNtrTk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "971069878713-dh0r5fvske5neduiuptbqavth97s0u1c.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

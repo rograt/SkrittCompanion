@@ -1,0 +1,58 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "ea20eaaa58e5a561e49e9a5d9bc628c8",
+    "entities": [
+      {
+        "tableName": "boss_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`closest_waypoint` TEXT, `bossName` TEXT NOT NULL, `start_time_list` TEXT, `background_image_id` INTEGER NOT NULL, `area` TEXT, PRIMARY KEY(`bossName`))",
+        "fields": [
+          {
+            "fieldPath": "closestWaypoint",
+            "columnName": "closest_waypoint",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "bossName",
+            "columnName": "bossName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "startTime",
+            "columnName": "start_time_list",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "backgroundId",
+            "columnName": "background_image_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "area",
+            "columnName": "area",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "bossName"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"ea20eaaa58e5a561e49e9a5d9bc628c8\")"
+    ]
+  }
+}

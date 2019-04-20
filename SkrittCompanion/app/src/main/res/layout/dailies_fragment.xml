@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/dailiesLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".View.Fragments.DailiesFragment">
+
+    <TextView
+        android:id="@+id/fractalDailyTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:text="FRACTALS"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/fractalLayout"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/fractalFrame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <include layout="@layout/daily_item_view" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pveTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:text="PvE"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/pveLayout"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pveFrame"
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:layout_marginBottom="20dp" />
+
+        <include layout="@layout/daily_item_view" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/pvpTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:text="PvP"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/pvpLayout"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pvpFrame"
+            android:layout_width="418dp"
+            android:layout_height="match_parent" />
+
+        <include layout="@layout/daily_item_view" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/wvwTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:text="WvW"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/wvwLayout"
+        android:layout_width="match_parent"
+        android:layout_height="175dp"
+        android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/wvwFrame"
+            android:layout_width="match_parent"
+            android:layout_height="137dp" />
+
+        <include
+            android:id="@+id/include"
+            layout="@layout/daily_item_view" />
+
+    </LinearLayout>
+
+</LinearLayout>
