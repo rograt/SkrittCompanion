@@ -20,4 +20,9 @@ public class AccountSingleton {
         }
         else throw new IllegalAccessError();
     }
+
+    public static void DestroyAccount(){
+        account.postValue(null);
+    }
+
 }

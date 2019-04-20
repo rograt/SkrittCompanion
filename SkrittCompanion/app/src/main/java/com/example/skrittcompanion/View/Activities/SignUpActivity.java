@@ -44,7 +44,6 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void onLoginClicked(View v){
-
         EditText emailField=findViewById(R.id.regEmailField);
         EditText passwordField=findViewById(R.id.regPassField);
         final ConstraintLayout uiLayout = findViewById(R.id.uiLayout);
@@ -54,17 +53,16 @@ public class SignUpActivity extends AppCompatActivity {
             vm.login(emailField.getText().toString(), passwordField.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    // If sign in fails, display a message to the user. If sign in succeeds
-                    // the auth state listener will be notified and logic to handle the
-                    // signed in user can be handled in the listener.
                     if (task.isSuccessful()) {
                         try {
                             vm.pullAccountInfo();
                             AccountSingleton.getInstance().observe(SignUpActivity.this, new Observer<Account>() {
                                 @Override
                                 public void onChanged(@Nullable final Account account) {
-                                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                                    finish();
+                                    if(account!=null){
+                                        startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                        finish();
+                                    }
                                 }
                             });
                         } catch (AuthenticatorException e) {
@@ -81,37 +79,49 @@ public class SignUpActivity extends AppCompatActivity {
 
     public void onRegisterClicked(View v){
         findViewById(R.id.regStatus).setVisibility(View.VISIBLE);
-        EditText emailField=findViewById(R.id.regEmailField);
-        EditText passwordField=findViewById(R.id.regPassField);
+        final EditText emailField=findViewById(R.id.regEmailField);
+        final EditText passwordField=findViewById(R.id.regPassField);
         final EditText authKeyField=findViewById(R.id.authField);
         if(!emailField.getText().toString().equals("") && !passwordField.getText().toString().equals("")){
             findViewById(R.id.regStatus).setVisibility(View.VISIBLE);
             final ConstraintLayout uiLayout = findViewById(R.id.uiLayout);
             uiLayout.setForeground(new ColorDrawable(0xCCFFFFFF));
-            vm.register(emailField.getText().toString(), passwordField.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    vm.saveAuthKey(authKeyField.getText().toString().trim());
-                    try {
-                        vm.pullAccountInfo();
-                        AccountSingleton.getInstance().observe(SignUpActivity.this, new Observer<Account>() {
+            vm.verifyAuth(authKeyField.getText().toString().trim()).observe(this, new Observer<Integer>() {
+                @Override
+                public void onChanged(Integer validityStatusCode) {
+                    if(validityStatusCode==200){
+                        vm.register(emailField.getText().toString(), passwordField.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
-                            public void onChanged(@Nullable final Account account) {
-                                startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                                finish();
-                                findViewById(R.id.regStatus).setVisibility(View.INVISIBLE);
-                                uiLayout.setForeground(null);
-                            }
-                        });
-                    } catch (AuthenticatorException e) {
-                        e.printStackTrace();
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    vm.saveAuthKey(authKeyField.getText().toString().trim());
+                                    try {
+                                        vm.pullAccountInfo();
+                                        AccountSingleton.getInstance().observe(SignUpActivity.this, new Observer<Account>() {
+                                            @Override
+                                            public void onChanged(@Nullable final Account account) {
+                                                if(account!=null){
+                                                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
+                                                    finish();
+                                                }
+                                                }
+                                        });
+                                    } catch (AuthenticatorException e) {
+                                        e.printStackTrace();
+                                    }
+                                } else {
+                                    uiLayout.setForeground(null);
+                                    findViewById(R.id.regStatus).setVisibility(View.GONE);
+                                    Toast.makeText(SignUpActivity.this, "Wrong email format", Toast.LENGTH_SHORT).show();
+                                }
+                            }});
+                    } else if (validityStatusCode==400){
+                        uiLayout.setForeground(null);
+                        findViewById(R.id.regStatus).setVisibility(View.GONE);
+                        Toast.makeText(SignUpActivity.this, "Auth Key not valid, please make sure that all 10 permissions are enabled", Toast.LENGTH_SHORT).show();
                     }
-                    findViewById(R.id.regStatus).setVisibility(View.INVISIBLE);
-                    startActivity(new Intent(SignUpActivity.this, MainActivity.class));
-                    finish();
-                } else Toast.makeText(SignUpActivity.this, "FAILED", Toast.LENGTH_SHORT).show();
-            }});
+                }
+            });
         } else Toast.makeText(SignUpActivity.this,"Empty fields. Please put it relevant information." , Toast.LENGTH_LONG).show();
     }
 

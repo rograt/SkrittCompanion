@@ -1,7 +1,9 @@
 package com.example.skrittcompanion.View.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.skrittcompanion.Model.Account;
 import com.example.skrittcompanion.Model.AccountSingleton;
 import com.example.skrittcompanion.View.Fragments.BossFragment;
 import com.example.skrittcompanion.View.Fragments.DailiesFragment;
@@ -20,6 +22,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.skrittcompanion.R;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -41,10 +44,6 @@ public class MainActivity extends AppCompatActivity
 
     }
 
-
-
-
-
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
@@ -65,7 +64,8 @@ public class MainActivity extends AppCompatActivity
         try{
             accountName.setText(AccountSingleton.getInstance().getValue().getName());
         }catch (NullPointerException e){
-            accountName.setText(getString(R.string.anon));
+            FirebaseAuth.getInstance().signOut();
+            startActivity(new Intent(this,SignUpActivity.class));
         }
         return true;
     }
@@ -78,8 +78,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.sign_out) {
+            FirebaseAuth.getInstance().signOut();
+            AccountSingleton.DestroyAccount();
+            startActivity(new Intent(this,SignUpActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

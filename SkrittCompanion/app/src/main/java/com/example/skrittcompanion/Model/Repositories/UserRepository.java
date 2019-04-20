@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.util.concurrent.ExecutionException;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -104,5 +106,8 @@ public class UserRepository {
         }
     }
 
+    public MutableLiveData<Integer> verifyKey(String authKey){
+        return remoteData.validateToken(authKey);
+    }
 
 }

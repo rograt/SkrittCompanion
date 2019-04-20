@@ -10,6 +10,7 @@ import com.google.firebase.auth.AuthResult;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
 
 public class SignUpViewModel extends AndroidViewModel {
     private UserRepository repository;
@@ -23,6 +24,10 @@ public class SignUpViewModel extends AndroidViewModel {
        return repository.signUp(email, password);
     }
 
+    public MutableLiveData<Integer> verifyAuth(String authKey){
+        return repository.verifyKey(authKey);
+    }
+
     public Task<AuthResult> login(String email, String password){
         return repository.login(email, password);
     }
@@ -34,7 +39,5 @@ public class SignUpViewModel extends AndroidViewModel {
     public void pullAccountInfo() throws AuthenticatorException {
         repository.pullAccountInfo();
     }
-
-
 
 }

@@ -23,4 +23,5 @@
     <string name="trading_post_sell">Trading Post Sell</string>
     <string name="trading_post_buy">Trading Post Buy</string>
     <string name="overview">Overview</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

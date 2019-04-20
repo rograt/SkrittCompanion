@@ -2,6 +2,7 @@ package com.example.skrittcompanion.Model.RemoteDataHandlers;
 
 import com.example.skrittcompanion.Model.Account;
 import com.example.skrittcompanion.Model.AccountSingleton;
+import com.example.skrittcompanion.Model.ApiKey;
 import com.example.skrittcompanion.Model.Services.AccountService;
 import com.example.skrittcompanion.Model.Services.TradingPostService;
 import com.example.skrittcompanion.Model.Transaction;
@@ -19,6 +20,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class AccountHandler {
     AccountService service;
+    private MutableLiveData<Integer> status;
 
     public AccountHandler(){
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
@@ -44,13 +46,37 @@ public class AccountHandler {
                     AccountSingleton.CreateAccount(account);
                 }
             }
-
             @Override
             public void onFailure(Call<Account>  call, Throwable t) {
                 t.printStackTrace();
             }
-
-
         });
+    }
+
+    public MutableLiveData<Integer> validateToken(final String authKey){
+        status=new MutableLiveData<>();
+        status.setValue(0);
+        Call<ApiKey> apiKeyCall=service.getTokenInfo(authKey);
+        apiKeyCall.enqueue(new Callback<ApiKey>() {
+            @Override
+            public void onResponse(Call<ApiKey> call, Response<ApiKey> response) {
+                if(response.body()!=null) {
+                    if(response.body().getPermissions().length==10){
+                        status.setValue(200);
+                    }
+                    else{
+                        status.setValue(400);
+                    }
+                }
+                else{
+                    status.setValue(400);
+                }
+            }
+            @Override
+            public void onFailure(Call<ApiKey>  call, Throwable t) {
+                t.printStackTrace();
+            }
+        });
+        return status;
     }
 }
