@@ -76,13 +76,11 @@ public class WalletHandler {
                     walletMutableLiveData.setValue(tempWallet);
                     setCurrencyInfo(tempIds.substring(0, tempIds.toString().length()-1));
                 }
-                // TODO: use the repository list and display it
             }
 
             @Override
             public void onFailure(Call<Currency[]> call, Throwable t) {
                 t.printStackTrace();
-                System.out.println("FAILED");                // TODO: handle error
             }
         });
         return walletMutableLiveData;

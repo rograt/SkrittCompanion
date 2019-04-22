@@ -2,6 +2,8 @@ package com.example.skrittcompanion.View.RecyclerAdapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.skrittcompanion.Model.DailyInfo;
 import com.example.skrittcompanion.R;
+import com.example.skrittcompanion.View.Activities.MainActivity;
 import com.squareup.picasso.Picasso;
 
 
@@ -20,9 +23,11 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
 
     private List<DailyInfo> dailies;
     final private OnListItemClickListener mOnListItemClickListener;
+    private Context context;
 
-    public DailyAdapter(OnListItemClickListener mOnListItemClickListener) {
+    public DailyAdapter(OnListItemClickListener mOnListItemClickListener, Context context) {
         this.mOnListItemClickListener = mOnListItemClickListener;
+        this.context=context;
     }
     @NonNull
     @Override
@@ -35,7 +40,9 @@ public class DailyAdapter extends RecyclerView.Adapter<DailyAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         viewHolder.dailyName.setText(dailies.get(i).getName());
-        Picasso.with(viewHolder.dailyIcon.getContext()).load(dailies.get(i).getIcon()).into(viewHolder.dailyIcon);
+        if(!context.getSharedPreferences(MainActivity.PREF_NAME, Context.MODE_PRIVATE).getBoolean("dataSaver",false)) {
+            Picasso.with(viewHolder.dailyIcon.getContext()).load(dailies.get(i).getIcon()).into(viewHolder.dailyIcon);
+        }
         viewHolder.onClick(viewHolder.itemView);
     }
 

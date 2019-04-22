@@ -36,9 +36,7 @@ public class UserRepository {
     private static UserRepository repo;
     private FirebaseAuth auth;
     private DatabaseReference fireDB;
-    private AccountService service;
     private String authKey;
-    private AsyncTask<Void,Void,Void> authTask;
     private AccountHandler remoteData;
 
     private UserRepository(Application application) {

@@ -1,5 +1,6 @@
 package com.example.skrittcompanion.View.RecyclerAdapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.example.skrittcompanion.Model.DailyInfo;
 import com.example.skrittcompanion.Model.Transaction;
 import com.example.skrittcompanion.R;
+import com.example.skrittcompanion.View.Activities.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -20,9 +22,11 @@ public class TradingPostItemAdapter extends RecyclerView.Adapter<TradingPostItem
 
 private List<Transaction> transactions;
 final private OnListItemClickListener mOnListItemClickListener;
+private Context context;
 
-    public TradingPostItemAdapter(TradingPostItemAdapter.OnListItemClickListener mOnListItemClickListener) {
+    public TradingPostItemAdapter(TradingPostItemAdapter.OnListItemClickListener mOnListItemClickListener,Context context) {
         this.mOnListItemClickListener = mOnListItemClickListener;
+        this.context=context;
     }
 
     @NonNull
@@ -39,8 +43,9 @@ final private OnListItemClickListener mOnListItemClickListener;
             viewHolder.tpItemNameView.setText(transactions.get(i).getItem().getName()+"");
             viewHolder.quantity.setText(transactions.get(i).getQuantity()+"");
             viewHolder.price.setText(transactions.get(i).getPrice()/10000+"g "+transactions.get(i).getPrice()%10000/100+"s "+transactions.get(i).getPrice()%10000%100+"b ");
-
-            Picasso.with(viewHolder.tpItemIconView.getContext()).load(transactions.get(i).getItem().getIcon()).into(viewHolder.tpItemIconView);
+            if(!context.getSharedPreferences(MainActivity.PREF_NAME,Context.MODE_PRIVATE).getBoolean("dataSaver",false)) {
+                Picasso.with(viewHolder.tpItemIconView.getContext()).load(transactions.get(i).getItem().getIcon()).into(viewHolder.tpItemIconView);
+            }
             viewHolder.onClick(viewHolder.itemView);
         }
 

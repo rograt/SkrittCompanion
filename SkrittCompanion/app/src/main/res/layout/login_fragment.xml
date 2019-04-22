@@ -107,7 +107,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
-        android:id="@+id/regStatus"
+        android:id="@+id/loginBar"
         android:layout_width="176dp"
         android:layout_height="153dp"
         android:layout_marginTop="8dp"

@@ -46,7 +46,7 @@ public class TradingPostFragment extends Fragment implements TradingPostItemAdap
         RecyclerView recyclerFrame = (getView()).findViewById(R.id.tradingPostRecyclerFrame);
         recyclerFrame.hasFixedSize();
         recyclerFrame.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final TradingPostItemAdapter adapter = new TradingPostItemAdapter(this);
+        final TradingPostItemAdapter adapter = new TradingPostItemAdapter(this,this.getContext());
         recyclerFrame.setAdapter(adapter);
         try {
             if(isSale){

@@ -40,7 +40,7 @@ public class WalletFragment extends Fragment implements WalletAdapter.OnListItem
         RecyclerView recyclerFrame = (getView()).findViewById(R.id.walletFrame);
         recyclerFrame.hasFixedSize();
         recyclerFrame.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final WalletAdapter adapter = new WalletAdapter(this );
+        final WalletAdapter adapter = new WalletAdapter(this,this.getContext());
         recyclerFrame.setAdapter(adapter);
         walletViewModel.getWallet().observe(this, new Observer<Wallet>() {
             @Override

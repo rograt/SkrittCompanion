@@ -25,6 +25,14 @@ import java.util.List;
 public class DailiesFragment extends Fragment implements DailyAdapter.OnListItemClickListener {
 
     private DailiesViewModel mViewModel;
+    public static final String BUNDLE_KEY = "DAILY_KEY";
+    public static final String FRACTAL_CODE="DAILIES_FRACTALS";
+    public static final String WVW_CODE="DAILIES_WVW";
+    public static final String PVP_CODE="DAILIES_PVP";
+    public static final String PVE_CODE="DAILIES_PVE";
+    public static final String BUNDLE_EMPTY_CODE="DAILIES_EMPTY";
+
+    private Bundle bundle;
 
     public static DailiesFragment newInstance() {
         return new DailiesFragment();
@@ -33,6 +41,7 @@ public class DailiesFragment extends Fragment implements DailyAdapter.OnListItem
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        bundle=getArguments();
         return inflater.inflate(R.layout.dailies_fragment, container, false);
 
     }
@@ -41,75 +50,70 @@ public class DailiesFragment extends Fragment implements DailyAdapter.OnListItem
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(DailiesViewModel.class);
-
-        RecyclerView recyclerFrame = (getView()).findViewById(R.id.fractalFrame);
+        RecyclerView recyclerFrame = (getView()).findViewById(R.id.daily_frame);
         recyclerFrame.hasFixedSize();
         recyclerFrame.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final DailyAdapter adapter = new DailyAdapter(this);
+        final DailyAdapter adapter = new DailyAdapter(this,this.getContext());
         recyclerFrame.setAdapter(adapter);
-        try {
-            mViewModel.getFractalDailies().observe(this, new Observer<List<DailyInfo>>() {
-                @Override
-                public void onChanged(@Nullable final List<DailyInfo> words) {
-                    // Update the cached copy of the words in the adapter.
-                    adapter.setDailies(words);
+        String value=bundle.getString(BUNDLE_KEY,"DAILIES_EMPTY");
+        bundle.remove(BUNDLE_KEY);
+        switch (value){
+            case FRACTAL_CODE:{
+                try {
+                    mViewModel.getFractalDailies().observe(this, new Observer<List<DailyInfo>>() {
+                        @Override
+                        public void onChanged(@Nullable final List<DailyInfo> words) {
+                            // Update the cached copy of the words in the adapter.
+                            adapter.setDailies(words);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        RecyclerView pveRecyclerFrame = (getView()).findViewById(R.id.pveFrame);
-        pveRecyclerFrame.hasFixedSize();
-        pveRecyclerFrame.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final DailyAdapter pveAdapter = new DailyAdapter(this);
-        pveRecyclerFrame.setAdapter(pveAdapter);
-        try {
-            mViewModel.getPveDailies().observe(this, new Observer<List<DailyInfo>>() {
-                @Override
-                public void onChanged(@Nullable final List<DailyInfo> words) {
-                    // Update the cached copy of the words in the adapter.
-                    pveAdapter.setDailies(words);
+                return;
+            }
+            case PVE_CODE:{
+                try {
+                    mViewModel.getPveDailies().observe(this, new Observer<List<DailyInfo>>() {
+                        @Override
+                        public void onChanged(@Nullable final List<DailyInfo> words) {
+                            // Update the cached copy of the words in the adapter.
+                            adapter.setDailies(words);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        RecyclerView pvpRecyclerFrame = (getView()).findViewById(R.id.pvpFrame);
-        pvpRecyclerFrame.hasFixedSize();
-        pvpRecyclerFrame.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final DailyAdapter pvpAdapter = new DailyAdapter(this);
-        pvpRecyclerFrame.setAdapter(pvpAdapter);
-        try {
-            mViewModel.getPvpDailies().observe(this, new Observer<List<DailyInfo>>() {
-                @Override
-                public void onChanged(@Nullable final List<DailyInfo> words) {
-                    // Update the cached copy of the words in the adapter.
-                    pvpAdapter.setDailies(words);
+                return;
+            }
+            case WVW_CODE:{
+                try {
+                    mViewModel.getWvwDailies().observe(this, new Observer<List<DailyInfo>>() {
+                        @Override
+                        public void onChanged(@Nullable final List<DailyInfo> words) {
+                            // Update the cached copy of the words in the adapter.
+                            adapter.setDailies(words);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        RecyclerView wvwRecyclerFrame = (getView()).findViewById(R.id.wvwFrame);
-        wvwRecyclerFrame.hasFixedSize();
-        wvwRecyclerFrame.setLayoutManager(new LinearLayoutManager(getActivity()));
-        final DailyAdapter wvwAdapter = new DailyAdapter(this);
-        wvwRecyclerFrame.setAdapter(wvwAdapter);
-        try {
-            mViewModel.getWvwDailies().observe(this, new Observer<List<DailyInfo>>() {
-                @Override
-                public void onChanged(@Nullable final List<DailyInfo> words) {
-                    // Update the cached copy of the words in the adapter.
-                    wvwAdapter.setDailies(words);
+                return;
+            }
+            case PVP_CODE:{
+                try {
+                    mViewModel.getPvpDailies().observe(this, new Observer<List<DailyInfo>>() {
+                        @Override
+                        public void onChanged(@Nullable final List<DailyInfo> words) {
+                            // Update the cached copy of the words in the adapter.
+                            adapter.setDailies(words);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
+            }
         }
-
 
     }
 

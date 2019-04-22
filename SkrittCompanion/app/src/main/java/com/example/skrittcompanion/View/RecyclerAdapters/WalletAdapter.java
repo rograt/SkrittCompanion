@@ -2,6 +2,8 @@ package com.example.skrittcompanion.View.RecyclerAdapters;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.TextView;
 import com.example.skrittcompanion.Model.Currency;
 import com.example.skrittcompanion.Model.CurrencyInfo;
 import com.example.skrittcompanion.R;
+import com.example.skrittcompanion.View.Activities.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -19,9 +22,11 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
 
     private Currency[] wallet;
     final private OnListItemClickListener mOnListItemClickListener;
+    private Context context;
 
-    public WalletAdapter( OnListItemClickListener mOnListItemClickListener) {
+    public WalletAdapter(OnListItemClickListener mOnListItemClickListener, Context context) {
         this.mOnListItemClickListener = mOnListItemClickListener;
+        this.context=context;
     }
 
     @NonNull
@@ -37,7 +42,9 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
         if(wallet[i].getDescription()!=null){
             viewHolder.currencyName.setText(wallet[i].getDescription().getName());
             viewHolder.currencyAmount.setText(wallet[i].getValue()+"");
-            Picasso.with(viewHolder.currencyLogo.getContext()).load(wallet[i].getDescription().getIcon()).into(viewHolder.currencyLogo);
+            if(!context.getSharedPreferences(MainActivity.PREF_NAME,Context.MODE_PRIVATE).getBoolean("dataSaver",false)){
+                Picasso.with(viewHolder.currencyLogo.getContext()).load(wallet[i].getDescription().getIcon()).into(viewHolder.currencyLogo);
+            }
             viewHolder.onClick(viewHolder.itemView);
         }
       }
@@ -56,9 +63,11 @@ public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder
         TextView currencyName;
         TextView currencyAmount;
         ImageView currencyLogo;
+        View itemView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            this.itemView=itemView;
             currencyName = itemView.findViewById(R.id.currencyNameView);
             currencyAmount = itemView.findViewById(R.id.currencyAmountView);
             currencyLogo=itemView.findViewById(R.id.currencyLogoView);

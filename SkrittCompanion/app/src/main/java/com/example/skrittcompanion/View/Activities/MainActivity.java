@@ -3,10 +3,9 @@ package com.example.skrittcompanion.View.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.skrittcompanion.Model.Account;
+import com.example.skrittcompanion.View.Fragments.DailiesTabbedFragment;
 import com.example.skrittcompanion.Model.AccountSingleton;
 import com.example.skrittcompanion.View.Fragments.BossFragment;
-import com.example.skrittcompanion.View.Fragments.DailiesFragment;
 import com.example.skrittcompanion.View.Fragments.OverviewFragment;
 import com.example.skrittcompanion.View.Fragments.TradingPostFragment;
 import com.example.skrittcompanion.View.Fragments.WalletFragment;
@@ -27,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public final static String PREF_NAME="settings_preferences";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +39,7 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setCheckedItem(R.id.overview);
@@ -83,6 +85,9 @@ public class MainActivity extends AppCompatActivity
             AccountSingleton.DestroyAccount();
             startActivity(new Intent(this,SignUpActivity.class));
         }
+        else if(id==R.id.settings){
+            startActivity(new Intent(this,SettingsActivity.class));
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -95,12 +100,15 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new BossFragment()).commit();
         }
         else if (id==R.id.wallet){
+            setTitle("Wallet");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new WalletFragment()).commit();
         }
         else if (id==R.id.daily_menu_item){
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new DailiesFragment()).commit();
+            setTitle("Dailies");
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new DailiesTabbedFragment()).commit();
         }
         else if(id==R.id.trading_post_sell_menu_item){
+            setTitle("Trading Post Sell");
             Bundle bundle=new Bundle();
             bundle.putBoolean("saleStat",true );
             TradingPostFragment fragment=new TradingPostFragment();
@@ -108,6 +116,7 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
         }
         else if(id==R.id.trading_post_buy_menu_item){
+            setTitle("Trading Post Buy");
             Bundle bundle=new Bundle();
             bundle.putBoolean("saleStat",false);
             TradingPostFragment fragment=new TradingPostFragment();
@@ -115,6 +124,7 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, fragment).commit();
         }
         else if(id==R.id.overview){
+            setTitle("Overview");
             getSupportFragmentManager().beginTransaction().replace(R.id.content_main, new OverviewFragment()).commit();
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -11,6 +12,7 @@ import android.accounts.AuthenticatorException;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -34,12 +36,20 @@ public class SignUpActivity extends AppCompatActivity {
 
 
     private SignUpViewModel vm;
+    private FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-        getSupportFragmentManager().beginTransaction().replace(R.id.startActivity, new LoginFragment()).commit();
+        try{
+            AccountSingleton.DestroyAccount();
+        }
+        catch (NullPointerException e){
+            Log.d("STATUS","NO ACCOUNT FOUND, PROCEEDING WITH LOGIN");
+        }
+        manager=getSupportFragmentManager();
+        manager.beginTransaction().replace(R.id.startActivity, new LoginFragment()).commit();
         vm = ViewModelProviders.of(this).get(SignUpViewModel.class);
     }
 
@@ -48,7 +58,7 @@ public class SignUpActivity extends AppCompatActivity {
         EditText passwordField=findViewById(R.id.regPassField);
         final ConstraintLayout uiLayout = findViewById(R.id.uiLayout);
         if(!emailField.getText().toString().equals("") && !passwordField.getText().toString().equals("")){
-            findViewById(R.id.regStatus).setVisibility(View.VISIBLE);
+            findViewById(R.id.loginBar).setVisibility(View.VISIBLE);
             uiLayout.setForeground(new ColorDrawable(0xCCFFFFFF));
             vm.login(emailField.getText().toString(), passwordField.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -70,7 +80,7 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     } else{
                         uiLayout.setForeground(null);
-                        findViewById(R.id.regStatus).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.loginBar).setVisibility(View.INVISIBLE);
                         Toast.makeText(SignUpActivity.this, "Wrong login information.", Toast.LENGTH_SHORT).show();
                     }
                 }});
@@ -126,8 +136,15 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void onSwitchToRegClicked(View v){
-        getSupportFragmentManager().beginTransaction().replace(R.id.startActivity, new RegisterFragment()).commit();
+        manager.beginTransaction().replace(R.id.startActivity, new RegisterFragment()).addToBackStack("Register").commit();
+    }
 
+    @Override
+    public void onBackPressed()
+    {
+        if(manager.getFragments().size()>0){
+            manager.popBackStack();
+        }
     }
 
 }

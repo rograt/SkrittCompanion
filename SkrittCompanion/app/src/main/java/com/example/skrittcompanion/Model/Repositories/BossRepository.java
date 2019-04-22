@@ -9,17 +9,18 @@ import com.example.skrittcompanion.Model.WorldBoss;
 import java.util.List;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 
 
 public class BossRepository {
     private BossDAO bossDAO;
-    private LiveData<List<WorldBoss>> bosses;
+    private MutableLiveData<List<WorldBoss>> bosses;
 
 
     public BossRepository(Application application) {
         SkrittDB db = SkrittDB.getDatabase(application);
         bossDAO= db.bossDAO();
-        bosses = bossDAO.getAllBosses();
+        bosses.setValue(bossDAO.getAllBosses().getValue());
     }
 
     public LiveData<List<WorldBoss>> getBosses() {
