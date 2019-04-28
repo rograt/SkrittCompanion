@@ -1,8 +1,5 @@
 package com.example.skrittcompanion.View.RecyclerAdapters;
 
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,13 +7,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.skrittcompanion.Model.Currency;
-import com.example.skrittcompanion.Model.CurrencyInfo;
 import com.example.skrittcompanion.R;
 import com.example.skrittcompanion.View.Activities.MainActivity;
 import com.squareup.picasso.Picasso;
-
-import java.util.List;
 
 public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder> {
 

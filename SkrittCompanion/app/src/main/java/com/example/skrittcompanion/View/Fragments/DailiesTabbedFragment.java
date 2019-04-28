@@ -69,6 +69,8 @@ public class DailiesTabbedFragment extends Fragment {
         @Override
         public CharSequence getPageTitle(int position) {
             switch (position){
+                // Apparently I can't just leave them as is, if I don't override this, the tab names will poof
+                // dunno why, dun care either maybe i'm just stupid.
                 case 0: return "FRACTALS";
                 case 1: return "PvE";
                 case 2: return "WvW";

@@ -62,9 +62,9 @@ public class DailiesFragment extends Fragment implements DailyAdapter.OnListItem
                 try {
                     mViewModel.getFractalDailies().observe(this, new Observer<List<DailyInfo>>() {
                         @Override
-                        public void onChanged(@Nullable final List<DailyInfo> words) {
+                        public void onChanged(@Nullable final List<DailyInfo> dailies) {
                             // Update the cached copy of the words in the adapter.
-                            adapter.setDailies(words);
+                            adapter.setDailies(dailies);
                         }
                     });
                 } catch (Exception e) {
@@ -76,9 +76,8 @@ public class DailiesFragment extends Fragment implements DailyAdapter.OnListItem
                 try {
                     mViewModel.getPveDailies().observe(this, new Observer<List<DailyInfo>>() {
                         @Override
-                        public void onChanged(@Nullable final List<DailyInfo> words) {
-                            // Update the cached copy of the words in the adapter.
-                            adapter.setDailies(words);
+                        public void onChanged(@Nullable final List<DailyInfo> dailies) {
+                            adapter.setDailies(dailies);
                         }
                     });
                 } catch (Exception e) {
@@ -90,9 +89,8 @@ public class DailiesFragment extends Fragment implements DailyAdapter.OnListItem
                 try {
                     mViewModel.getWvwDailies().observe(this, new Observer<List<DailyInfo>>() {
                         @Override
-                        public void onChanged(@Nullable final List<DailyInfo> words) {
-                            // Update the cached copy of the words in the adapter.
-                            adapter.setDailies(words);
+                        public void onChanged(@Nullable final List<DailyInfo> dailies) {
+                            adapter.setDailies(dailies);
                         }
                     });
                 } catch (Exception e) {
@@ -104,9 +102,8 @@ public class DailiesFragment extends Fragment implements DailyAdapter.OnListItem
                 try {
                     mViewModel.getPvpDailies().observe(this, new Observer<List<DailyInfo>>() {
                         @Override
-                        public void onChanged(@Nullable final List<DailyInfo> words) {
-                            // Update the cached copy of the words in the adapter.
-                            adapter.setDailies(words);
+                        public void onChanged(@Nullable final List<DailyInfo> dailies) {
+                            adapter.setDailies(dailies);
                         }
                     });
                 } catch (Exception e) {

@@ -2,18 +2,14 @@ package com.example.skrittcompanion.Model.Repositories;
 
 import android.content.Context;
 
-import com.example.skrittcompanion.Model.CurrencyInfo;
-import com.example.skrittcompanion.Model.DAOs.BossDAO;
-import com.example.skrittcompanion.Model.WorldBoss;
-import com.example.skrittcompanion.Utils.SpawnTimeConverter;
-
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
+
+import com.example.skrittcompanion.Model.DAOs.BossDAO;
+import com.example.skrittcompanion.Model.WorldBoss;
 
 @Database(entities = {WorldBoss.class}, version = 1)
-@TypeConverters({SpawnTimeConverter.class})
 public abstract class SkrittDB extends RoomDatabase {
 
     public abstract BossDAO bossDAO();
@@ -25,7 +21,7 @@ public abstract class SkrittDB extends RoomDatabase {
             synchronized (SkrittDB.class) {
                 if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            SkrittDB.class, "word_database").build();
+                            SkrittDB.class, "skritt_database").build();
                 }
             }
         }

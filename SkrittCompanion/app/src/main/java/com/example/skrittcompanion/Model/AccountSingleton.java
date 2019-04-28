@@ -1,7 +1,5 @@
 package com.example.skrittcompanion.Model;
 
-import android.util.Log;
-
 import androidx.lifecycle.MutableLiveData;
 
 public class AccountSingleton {

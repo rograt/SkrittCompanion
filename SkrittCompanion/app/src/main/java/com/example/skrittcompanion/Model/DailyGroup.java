@@ -1,7 +1,5 @@
 package com.example.skrittcompanion.Model;
 
-import com.google.gson.annotations.SerializedName;
-
 public class DailyGroup {
 
     private Daily[] fractals;

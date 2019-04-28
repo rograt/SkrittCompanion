@@ -3,12 +3,11 @@ package com.example.skrittcompanion.Model.Repositories;
 import android.accounts.AuthenticatorException;
 import android.app.Application;
 import android.os.AsyncTask;
-import com.example.skrittcompanion.Model.Account;
-import com.example.skrittcompanion.Model.AccountSingleton;
+
+import androidx.annotation.NonNull;
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.skrittcompanion.Model.RemoteDataHandlers.AccountHandler;
-import com.example.skrittcompanion.Model.RemoteDataHandlers.DailyHandler;
-import com.example.skrittcompanion.Model.RemoteDataHandlers.TradingPostHandler;
-import com.example.skrittcompanion.Model.Services.AccountService;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
@@ -18,19 +17,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
-import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
-
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
-import retrofit2.Call;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 public class UserRepository {
     private static UserRepository repo;

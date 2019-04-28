@@ -15,6 +15,6 @@ public interface BossDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(WorldBoss boss);
 
-    @Query("SELECT * from boss_table")
+    @Query("SELECT * from table_boss")
     LiveData<List<WorldBoss>> getAllBosses();
 }

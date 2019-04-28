@@ -1,15 +1,12 @@
 package com.example.skrittcompanion.Model.RemoteDataHandlers;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.skrittcompanion.Model.Account;
 import com.example.skrittcompanion.Model.AccountSingleton;
 import com.example.skrittcompanion.Model.ApiKey;
 import com.example.skrittcompanion.Model.Services.AccountService;
-import com.example.skrittcompanion.Model.Services.TradingPostService;
-import com.example.skrittcompanion.Model.Transaction;
 
-import java.util.List;
-
-import androidx.lifecycle.MutableLiveData;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
@@ -74,7 +71,7 @@ public class AccountHandler {
             }
             @Override
             public void onFailure(Call<ApiKey>  call, Throwable t) {
-                t.printStackTrace();
+                status.setValue(500);
             }
         });
         return status;

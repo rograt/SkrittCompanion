@@ -27,6 +27,7 @@ public class DailyHandler {
     private MutableLiveData<List<DailyInfo>> pvpInfo;
     private MutableLiveData<List<DailyInfo>> pveInfo;
 
+    // Only used during special events.
     private MutableLiveData<List<DailyInfo>> specialInfo;
 
 

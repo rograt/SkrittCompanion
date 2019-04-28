@@ -1,7 +1,5 @@
 package com.example.skrittcompanion.Model;
 
-import java.util.ArrayList;
-
 public class Wallet {
     private Currency[] currencies;
 

@@ -1,14 +1,9 @@
 package com.example.skrittcompanion.Model.Repositories;
 
-import android.app.Application;
-import android.os.AsyncTask;
+import androidx.lifecycle.MutableLiveData;
 
-import com.example.skrittcompanion.Model.CurrencyInfo;
 import com.example.skrittcompanion.Model.RemoteDataHandlers.WalletHandler;
 import com.example.skrittcompanion.Model.Wallet;
-
-
-import androidx.lifecycle.MutableLiveData;
 
 public class CurrencyRepository {
 

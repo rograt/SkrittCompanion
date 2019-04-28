@@ -7,16 +7,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.skrittcompanion.Model.DailyInfo;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.skrittcompanion.Model.Transaction;
 import com.example.skrittcompanion.R;
 import com.example.skrittcompanion.View.Activities.MainActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class TradingPostItemAdapter extends RecyclerView.Adapter<TradingPostItemAdapter.ViewHolder> {
 

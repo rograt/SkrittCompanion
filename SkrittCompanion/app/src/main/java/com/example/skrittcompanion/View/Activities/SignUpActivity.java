@@ -9,8 +9,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.accounts.AuthenticatorException;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +23,7 @@ import android.widget.Toast;
 
 import com.example.skrittcompanion.Model.Account;
 import com.example.skrittcompanion.Model.AccountSingleton;
+import com.example.skrittcompanion.Model.Repositories.BossRepository;
 import com.example.skrittcompanion.Model.Transaction;
 import com.example.skrittcompanion.R;
 import com.example.skrittcompanion.View.Fragments.LoginFragment;
@@ -51,6 +55,9 @@ public class SignUpActivity extends AppCompatActivity {
         manager=getSupportFragmentManager();
         manager.beginTransaction().replace(R.id.startActivity, new LoginFragment()).commit();
         vm = ViewModelProviders.of(this).get(SignUpViewModel.class);
+        if(!isNetworkAvailable()){
+            Toast.makeText(this, "Network Unavailable.", Toast.LENGTH_LONG).show();
+        }
     }
 
     public void onLoginClicked(View v){
@@ -92,9 +99,9 @@ public class SignUpActivity extends AppCompatActivity {
         final EditText emailField=findViewById(R.id.regEmailField);
         final EditText passwordField=findViewById(R.id.regPassField);
         final EditText authKeyField=findViewById(R.id.authField);
+        final ConstraintLayout uiLayout = findViewById(R.id.uiLayout);
         if(!emailField.getText().toString().equals("") && !passwordField.getText().toString().equals("")){
             findViewById(R.id.regStatus).setVisibility(View.VISIBLE);
-            final ConstraintLayout uiLayout = findViewById(R.id.uiLayout);
             uiLayout.setForeground(new ColorDrawable(0xCCFFFFFF));
             vm.verifyAuth(authKeyField.getText().toString().trim()).observe(this, new Observer<Integer>() {
                 @Override
@@ -129,10 +136,19 @@ public class SignUpActivity extends AppCompatActivity {
                         uiLayout.setForeground(null);
                         findViewById(R.id.regStatus).setVisibility(View.GONE);
                         Toast.makeText(SignUpActivity.this, "Auth Key not valid, please make sure that all 10 permissions are enabled", Toast.LENGTH_SHORT).show();
+                    } else if(validityStatusCode==500){
+                        uiLayout.setForeground(null);
+                        findViewById(R.id.regStatus).setVisibility(View.GONE);
+                        Toast.makeText(SignUpActivity.this, "Network Error. Check your network connectivity and try again.", Toast.LENGTH_SHORT).show();
+
                     }
                 }
             });
-        } else Toast.makeText(SignUpActivity.this,"Empty fields. Please put it relevant information." , Toast.LENGTH_LONG).show();
+        } else {
+            uiLayout.setForeground(null);
+            findViewById(R.id.regStatus).setVisibility(View.GONE);
+            Toast.makeText(SignUpActivity.this,"Empty fields. Please put it relevant information." , Toast.LENGTH_LONG).show();
+        }
     }
 
     public void onSwitchToRegClicked(View v){
@@ -145,6 +161,13 @@ public class SignUpActivity extends AppCompatActivity {
         if(manager.getFragments().size()>0){
             manager.popBackStack();
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 }

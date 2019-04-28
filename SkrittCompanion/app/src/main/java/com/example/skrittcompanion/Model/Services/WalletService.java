@@ -2,7 +2,6 @@ package com.example.skrittcompanion.Model.Services;
 
 import com.example.skrittcompanion.Model.Currency;
 import com.example.skrittcompanion.Model.CurrencyInfo;
-import com.example.skrittcompanion.Model.Wallet;
 
 import java.util.List;
 

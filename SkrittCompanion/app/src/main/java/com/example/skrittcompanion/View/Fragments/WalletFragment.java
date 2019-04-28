@@ -1,26 +1,23 @@
 package com.example.skrittcompanion.View.Fragments;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import android.os.Bundle;
-
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.example.skrittcompanion.Model.CurrencyInfo;
-import com.example.skrittcompanion.Model.Wallet;
-import com.example.skrittcompanion.View.RecyclerAdapters.WalletAdapter;
-import com.example.skrittcompanion.R;
-import com.example.skrittcompanion.ViewModel.WalletViewModel;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
+import com.example.skrittcompanion.Model.Wallet;
+import com.example.skrittcompanion.R;
+import com.example.skrittcompanion.View.RecyclerAdapters.WalletAdapter;
+import com.example.skrittcompanion.ViewModel.WalletViewModel;
 
 public class WalletFragment extends Fragment implements WalletAdapter.OnListItemClickListener  {
 
@@ -44,10 +41,9 @@ public class WalletFragment extends Fragment implements WalletAdapter.OnListItem
         recyclerFrame.setAdapter(adapter);
         walletViewModel.getWallet().observe(this, new Observer<Wallet>() {
             @Override
-            public void onChanged(@Nullable final Wallet words) {
-                // Update the cached copy of the words in the adapter.
+            public void onChanged(@Nullable final Wallet wallet) {
                 bar.setVisibility(View.GONE);
-                adapter.setWallet(words.getCurrencies());
+                adapter.setWallet(wallet.getCurrencies());
             }
         });
     }

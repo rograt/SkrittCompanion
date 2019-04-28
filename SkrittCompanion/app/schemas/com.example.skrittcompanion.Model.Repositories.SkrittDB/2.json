@@ -1,12 +1,12 @@
 {
   "formatVersion": 1,
   "database": {
-    "version": 1,
-    "identityHash": "7a3184e5787772ad1856ad2233fc754b",
+    "version": 2,
+    "identityHash": "6ffdbfd15620a5a92d8a275b59b0ae5a",
     "entities": [
       {
-        "tableName": "table_boss",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`closest_waypoint` TEXT, `bossName` TEXT NOT NULL, `initial_spawn_time_hour` INTEGER NOT NULL, `initial_spawn_time_minute` INTEGER NOT NULL, `wiki_page` TEXT, `area` TEXT, `spawn_interval` INTEGER NOT NULL, `expected_modulus` INTEGER NOT NULL, PRIMARY KEY(`bossName`))",
+        "tableName": "boss_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`closest_waypoint` TEXT, `bossName` TEXT NOT NULL, `initial_spawn_time_hour` INTEGER NOT NULL, `initial_spawn_time_minute` INTEGER NOT NULL, `background_image_id` INTEGER NOT NULL, `area` TEXT, `spawn_interval` INTEGER NOT NULL, `expected_modulus` INTEGER NOT NULL, PRIMARY KEY(`bossName`))",
         "fields": [
           {
             "fieldPath": "closestWaypoint",
@@ -33,10 +33,10 @@
             "notNull": true
           },
           {
-            "fieldPath": "wikiPage",
-            "columnName": "wiki_page",
-            "affinity": "TEXT",
-            "notNull": false
+            "fieldPath": "backgroundId",
+            "columnName": "background_image_id",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "area",
@@ -70,7 +70,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"7a3184e5787772ad1856ad2233fc754b\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"6ffdbfd15620a5a92d8a275b59b0ae5a\")"
     ]
   }
 }

@@ -53,7 +53,6 @@ public class TradingPostFragment extends Fragment implements TradingPostItemAdap
                 mViewModel.getItemsOnSale().observe(this, new Observer<List<Transaction>>() {
                     @Override
                     public void onChanged(@Nullable final List<Transaction> transactions) {
-                        // Update the cached copy of the words in the adapter.
                         bar.setVisibility(View.GONE);
                         adapter.setTransactions(transactions);
                     }
@@ -62,7 +61,6 @@ public class TradingPostFragment extends Fragment implements TradingPostItemAdap
                 mViewModel.getItemsOnBuy().observe(this, new Observer<List<Transaction>>() {
                     @Override
                     public void onChanged(@Nullable final List<Transaction> transactions) {
-                        // Update the cached copy of the words in the adapter.
                         ProgressBar bar =(getView()).findViewById(R.id.loadingStatus);
                         bar.setVisibility(View.GONE);
                         adapter.setTransactions(transactions);

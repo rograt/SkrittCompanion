@@ -1,13 +1,11 @@
 package com.example.skrittcompanion.Model.Repositories;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.example.skrittcompanion.Model.DailyInfo;
 import com.example.skrittcompanion.Model.RemoteDataHandlers.DailyHandler;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 
 public class DailyRepository {
 

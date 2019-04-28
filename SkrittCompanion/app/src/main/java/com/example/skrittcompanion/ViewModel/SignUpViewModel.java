@@ -2,15 +2,14 @@ package com.example.skrittcompanion.ViewModel;
 
 import android.accounts.AuthenticatorException;
 import android.app.Application;
-import android.os.AsyncTask;
-
-import com.example.skrittcompanion.Model.Repositories.UserRepository;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.skrittcompanion.Model.Repositories.UserRepository;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 
 public class SignUpViewModel extends AndroidViewModel {
     private UserRepository repository;
